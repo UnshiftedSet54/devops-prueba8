@@ -7,12 +7,16 @@ app.use(express.json())
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/intro', (req, res) => {
+app.get('/', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, 'public', 'calcIntro.html'))
 })
 
 app.use('/calculator', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, 'public', 'calculator.html'))
+})
+
+app.use('/*', (req, res) => {
+  res.status(404).json({msg: "Not Found"})
 })
 
 app.listen(PORT, () => console.log(`Listening at port ${PORT}`))
